@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>הגרלת שני מספרים</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        direction: rtl;
+        text-align: center;
+        background: #f4f4f4;
+        padding: 20px;
+    }
+    .container {
+        background: white;
+        padding: 20px;
+        border-radius: 15px;
+        display: inline-block;
+        box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+    .numbers {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-bottom: 15px;
+    }
+    .num-btn {
+        border: none;
+        padding: 15px;
+        font-size: 1.2em;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background 0.2s;
+  
+    
+        background: linear-gradient(
+    270deg,
+    #4A90E2,
+    #8e54e9,
+    #43e97b,
+    #f9d423,
+    #f857a6,
+    #4A90E2
+  );
+  background-size: 1200% 100%;
+  animation: rainbow-move 8s linear infinite;
+}
+    
+
+@keyframes rainbow-move {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+        
+    .num-btn:hover {
+        background: #bbb;
+    }
+    .selected {
+        background: black !important;
+        color: white;
+        font-weight: bold;
+    }
+    input, button {
+        padding: 10px;
+        margin: 5px;
+        font-size: 1em;
+    }
+    #passwordPopup {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(0,0,0,0.7);
+        display: none;
+        align-items: center;
+        justify-content: center;
+    }
+    #passwordBox {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+    }
+    #balance {
+        font-weight: bold;
+    }
+    .positive {
+        color: green;
+    }
+    .negative {
+        color: red;
+    }
+    .draw-results {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        margin-top: 20px;
+    }
+    .chosen-box {
+    display: inline-block;
+   background: rgba(0, 128, 0, 0.7);
+    color: white;
+    font-size: 3em;
+    font-weight: 600;
+    padding: 15px 20px;
+    border-radius: 10px;
+    margin-top: 15px;
+        margin-bottom:15px;
+}
+    
+    .circle {
+        width: 80px;
+        height: 80px;
+        background: orange;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 4em;
+        font-weight: bold;
+        color: white;
+        box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+    #drawBtn {
+        color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 12px 30px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    margin-bottom: 18px;
+    box-shadow: 0 1px 6px #0001;
+    letter-spacing: 1px;
+    direction: rtl;
+        background: linear-gradient(
+    270deg,
+    #4A90E2,
+    #8e54e9,
+    #43e97b,
+    #f9d423,
+    #f857a6,
+    #4A90E2
+  );
+  background-size: 1200% 100%;
+  animation: rainbow-move 4s linear infinite;
+}
+
+@keyframes rainbow-move {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+.gio {
+  border: none;
+  margin: 32px 0;
+  height: 4px;
+  width: 100%;
+  opacity: 0.85;
+  border-radius: 2px;
+  box-shadow: 0 1px 4px rgba(74, 144, 226, 0.1);
+  background: linear-gradient(
+    270deg,
+    #4A90E2,
+    #8e54e9,
+    #43e97b,
+    #f9d423,
+    #f857a6,
+    #4A90E2
+  );
+  background-size: 1200% 100%;
+  animation: rainbow-move 4s linear infinite;
+}
+
+@keyframes rainbow-move {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+    .gio2 {
+  border: none;
+  margin: 32px auto;
+  height: 4px;
+  width: 38%;
+  opacity: 0.85;
+  border-radius: 2px;
+  box-shadow: 0 1px 4px rgba(74, 144, 226, 0.1);
+  background: linear-gradient(
+    270deg,
+    #4A90E2,
+    #8e54e9,
+    #43e97b,
+    #f9d423,
+    #f857a6,
+    #4A90E2
+  );
+  background-size: 1200% 100%;
+  animation: rainbow-move 4s linear infinite;
+}
+
+@keyframes rainbow-move {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+#drawBtn:hover {
+    background: linear-gradient(90deg, #00b8d9 40%, #36b37e 100%);
+    transform: translateY(-2px) scale(1.04);
+}
+
+label {
+    font-size: 1em;
+    color: #222;
+    margin-left: 8px;
+}
+    #betAmount {
+    font-size: 1em;
+    padding: 7px 12px;
+    border: 1.5px solid #36b37e;
+    border-radius: 5px;
+    background: #f9fffc;
+    color: #222;
+    width: 90px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    direction: ltr;
+}
+
+#betAmount:focus {
+    border-color: #00b8d9;
+    box-shadow: 0 0 6px #00b8d933;
+}
+</style>
+</head>
+<body>
+
+    <audio id="sndStart" src="coci124.mp3" preload="auto"></audio>
+    
+    <audio id="sndWin"  src="coci1235.mp3"  preload="auto"></audio>
+<audio id="sndLose" src="coci123.mp3" preload="auto"></audio>
+    <!-- 1️⃣ תוצאות ההגרלה --><div id="chosenNumbers" class="chosen-box"></div>
+<div class="container">
+
+    <div class="draw-results">
+         <div class="circle" id="result2">?</div>
+    </div>
+    <p id="result"></p>
+
+    <!-- 2️⃣ כפתור הגרלה -->
+    <button id="drawBtn">הגרל</button>
+
+    <!-- 3️⃣ סכום ומאזן -->
+    <div>
+        <label>סכום הימור</label><br>
+        <input type="number" id="betAmount" min="1" value="10" style="text-align: center;">    </div>
+    
+    <h3>מאזן רווח/הפסד: <span id="balance">0</span> ₪</h3>
+
+    <!-- 4️⃣ בחירת מספרים -->
+    <hr class="gio">
+   <div class="numbers" id="col1Buttons"></div><hr class="gio">
+</div>
+
+<!-- חלון סיסמה -->
+<div id="passwordPopup">
+    <div id="passwordBox">
+        <h3>הזן סיסמה להמשך</h3>
+        <input type="password" id="passwordInput" placeholder="סיסמה">
+        <br><br>
+        <button id="passwordSubmit">אישור</button>
+    </div>
+</div>
+<audio id="sndTick" src="sounds/tick.mp3" preload="auto"></audio>
+    <!-- כפתור איפוס -->
+<button id="resetBtn" style="background:red; color:white; font-weight:bold; padding:10px 20px; border:none; border-radius:5px; margin-top:15px;">
+    איפוס
+</button>
+
+<!-- פופאפ אישור איפוס -->
+<div id="resetPopup" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); align-items:center; justify-content:center;">
+    <div style="background:white; padding:20px; border-radius:10px; text-align:center; min-width:250px;">
+        <h3>האם לאפס את כל הנתונים?</h3>
+        <button id="confirmReset" style="background:green; color:white; padding:8px 15px; border:none; border-radius:5px; margin:5px;">כן</button>
+        <button id="cancelReset" style="background:gray; color:white; padding:8px 15px; border:none; border-radius:5px; margin:5px;">לא</button>
+    </div>
+</div>
+    
+<script>
+  // יצירת כפתורי מספרים
+  // יצירת כפתורי מספרים (1–8) עם סימון בחירה
+function createNumberButtons(containerId) {
+  const container = document.getElementById(containerId);
+  for (let i = 1; i <= 8; i++) {
+    const btn = document.createElement("button");
+    btn.innerText = i;
+    btn.className = "num-btn";
+    btn.addEventListener("click", function () {
+      Array.from(container.children).forEach((b) => b.classList.remove("selected"));
+      btn.classList.add("selected");
+    });
+    container.appendChild(btn);
+  }
+}
+createNumberButtons("col1Buttons");
+
+// קיצורים לאלמנטים
+const drawBtn  = document.getElementById("drawBtn");
+const resultEl = document.getElementById("result");
+const sndWin   = document.getElementById("sndWin");
+const sndLose  = document.getElementById("sndLose");
+const sndTick  = document.getElementById("sndTick");
+const sndStart = document.getElementById("sndStart");
+const chosenNumbersBox = document.getElementById("chosenNumbers");
+
+// מעגל התוצאה – תומך ב-result1 או result2 (אצלך יש result2)
+const RESULT_ID = document.getElementById("result1") ? "result1" : "result2";
+
+// נתוני מאזן רווח/הפסד (בלי "מאזן השקעה כולל")
+let balance = parseFloat(localStorage.getItem("balance")) || 0;
+
+function updateDisplay() {
+  const balanceEl = document.getElementById("balance");
+  balanceEl.innerText = balance;
+  balanceEl.className = balance >= 0 ? "positive" : "negative";
+}
+updateDisplay();
+
+function getSelectedNumber(containerId) {
+  const selectedBtn = Array.from(document.getElementById(containerId).children)
+    .find((btn) => btn.classList.contains("selected"));
+  return selectedBtn ? parseInt(selectedBtn.innerText) : null;
+}
+
+// אנימציית ריצה עם האטה
+function spinNumber(elementId, finalNumber, onDone) {
+  let elapsed = 0;
+  let delay = 50;
+  const el = document.getElementById(elementId);
+  if (!el) return;
+
+  const timer = setInterval(() => {
+    try { sndTick.currentTime = 0; sndTick.play().catch(()=>{}); } catch (e) {}
+    el.innerText = Math.floor(Math.random() * 8) + 1;
+    elapsed += delay;
+
+    if (elapsed >= 2400) {
+      delay += 20;
+      clearInterval(timer);
+
+      const slowTimer = setInterval(() => {
+        try { sndTick.currentTime = 0; sndTick.play().catch(()=>{}); } catch (e) {}
+        el.innerText = Math.floor(Math.random() * 8) + 1;
+        elapsed += delay;
+        delay += 10;
+
+        if (elapsed >= 3000) {
+          clearInterval(slowTimer);
+          el.innerText = finalNumber;
+          if (onDone) onDone();
+        }
+      }, delay);
+    }
+  }, delay);
+}
+
+// לחיצה על הגרלה
+drawBtn.addEventListener("click", function () {
+  const chosen = getSelectedNumber("col1Buttons");
+  const betAmount = parseFloat(document.getElementById("betAmount").value);
+
+  if (!chosen || !betAmount || betAmount <= 0) {
+    alert("אנא בחר מספר וסכום תקין");
+    return;
+  }
+
+  // הצגת המספר שנבחר
+  if (chosenNumbersBox) chosenNumbersBox.innerText = chosen;
+
+  try { sndStart.currentTime = 0; sndStart.play().catch(()=>{}); } catch(e){}
+  drawBtn.disabled = true;
+
+  const rand = Math.floor(Math.random() * 8) + 1;
+
+  spinNumber(RESULT_ID, rand, () => {
+    try { sndStart.pause(); sndStart.currentTime = 0; } catch(e){}
+
+    const win = chosen === rand;
+    const s = win ? sndWin : sndLose;
+    try { s.currentTime = 0; s.play().catch(()=>{}); } catch(e){}
+
+    if (win) {
+      const prize = betAmount * 5; // החזר כפול 5
+      balance += prize;
+      resultEl.innerHTML = `🎉 זכית! עכשיו אתה מקבל וואחד כאפה מנצח המספר היה ${rand}. זכית ב-${prize} ₪`;
+    } else {
+      balance -= betAmount;
+      resultEl.innerHTML = `😂 לא נורא, אולי בפעם הבאה 😂`;
+    }
+
+    localStorage.setItem("balance", balance);
+    updateDisplay();
+    drawBtn.disabled = false;
+  });
+});
+
+/* =======================
+   איפוס נתונים – עובד
+   ======================= */
+const resetBtn     = document.getElementById("resetBtn");
+const resetPopup   = document.getElementById("resetPopup");
+const confirmReset = document.getElementById("confirmReset");
+const cancelReset  = document.getElementById("cancelReset");
+
+// פתיחת פופאפ איפוס
+if (resetBtn && resetPopup) {
+  resetBtn.addEventListener("click", () => {
+    resetPopup.style.display = "flex";
+  });
+}
+
+// ביטול איפוס
+if (cancelReset && resetPopup) {
+  cancelReset.addEventListener("click", () => {
+    resetPopup.style.display = "none";
+  });
+}
+
+// אישור איפוס
+if (confirmReset && resetPopup) {
+  confirmReset.addEventListener("click", () => {
+    // לעצור צלילים שרצים
+    [sndStart, sndWin, sndLose, sndTick].forEach(a => {
+      try { a.pause(); a.currentTime = 0; } catch(e){}
+    });
+
+    // ניקוי נתונים
+    localStorage.clear();
+    balance = 0;
+
+    // איפוס תצוגה
+    updateDisplay();
+    resultEl.innerHTML = "";
+    const resEl = document.getElementById(RESULT_ID);
+    if (resEl) resEl.innerText = "?";
+    if (chosenNumbersBox) chosenNumbersBox.innerText = "";
+
+    // ביטול בחירה של כפתורי המספרים
+    const col = document.getElementById("col1Buttons");
+    if (col) Array.from(col.children).forEach(b => b.classList.remove("selected"));
+
+    // החזרת סכום ברירת מחדל
+    const betInput = document.getElementById("betAmount");
+    if (betInput) betInput.value = 10;
+
+    // סגירת הפופאפ
+    resetPopup.style.display = "none";
+  });
+}
+</script>
+</body>
+</html>
